@@ -16,7 +16,7 @@ declare class Wireless {
         channels: any[];
     }[];
 
-    static connect(ssid: any, password: any, iface: any): boolean;
+    static connect(ssid: any, password: any, iface: any): void;
     static disconnect(iface: any): void;
     static forget(ssid: any): void;
     static bssid(value: any): any;

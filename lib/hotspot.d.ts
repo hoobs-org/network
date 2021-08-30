@@ -1,11 +1,11 @@
 export = Hotspot;
 
 declare class Hotspot {
-    static code(length: any): string;
+    static uuid(seed: any): string;
 
     constructor(options: any);
 
-    uuid: string;
+    uuid: any;
     iface: any;
     gateway: any;
 
@@ -18,6 +18,16 @@ declare class Hotspot {
 
     get running(): any;
 
+    get status(): {
+        running: any;
+        ssid: string;
+    } | {
+        running: any;
+        ssid?: undefined;
+    };
+
     start(ssid: any): void;
+    ssid: string;
+
     stop(): void;
 }
