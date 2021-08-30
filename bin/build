@@ -40,16 +40,16 @@ program.version(pjson.version, "-v, --version", "output the current version")
 
 program.command("network", { isDefault: true })
     .description("build network library")
-    .action(() => {
-        if (process.platform === "linux") {
-            if (!existsSync(join(root, "builds"))) mkdirSync(join(root, "builds"));
+    .option("-l, --lint", "lint the code before building")
+    .action((command) => {
+        if (command.lint) execSync(`${join(root, "node_modules", ".bin", "eslint")} '*.js'`, { cwd: root, stdio: "inherit" });
+        if (!existsSync(join(root, "builds"))) mkdirSync(join(root, "builds"));
 
-            execSync("yarn pack", { cwd: root, stdio: "inherit" });
+        execSync("yarn pack", { cwd: root, stdio: "inherit" });
 
-            if (existsSync(join(root, "builds", `hoobs-network-v${pjson.version}.tgz`))) unlinkSync(join(root, "builds", `hoobs-network-v${pjson.version}.tgz`))
+        if (existsSync(join(root, "builds", `hoobs-network-v${pjson.version}.tgz`))) unlinkSync(join(root, "builds", `hoobs-network-v${pjson.version}.tgz`))
 
-            execSync(`mv ${join(root, `hoobs-network-v${pjson.version}.tgz`)} ${join(root, "builds", `hoobs-network-v${pjson.version}.tgz`)}`, { cwd: root, stdio: "inherit" });
-        }
+        execSync(`mv ${join(root, `hoobs-network-v${pjson.version}.tgz`)} ${join(root, "builds", `hoobs-network-v${pjson.version}.tgz`)}`, { cwd: root, stdio: "inherit" });
     });
 
 program.command("publish")

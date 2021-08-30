@@ -15,7 +15,7 @@
         "name": "Michael J Kellsy"
     },
     "scripts": {
-        "build": "bin/build",
+        "build": "bin/build --lint",
         "release": "bin/build publish"
     },
     "devDependencies": {
