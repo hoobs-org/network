@@ -1,13 +1,8 @@
 .vscode
 bin/
-builds/*.tgz
+builds/
 node_modules/
-src/
 .editorconfig
 .eslintrc
 .gitignore
 .npmignore
-CHANGELOG.md
-tsconfig.json
-*.spec.ts
-*.tgz

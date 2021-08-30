@@ -18,8 +18,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.                          *
  **************************************************************************************************/
 
-const Program = require("commander");
-const Inquirer = require("inquirer");
+const program = require("commander");
+const inquirer = require("inquirer");
 const { join } = require("path");
 const { execSync } = require("child_process");
 
@@ -33,12 +33,12 @@ const {
 const root = join(__dirname, "../");
 const pjson = JSON.parse(readFileSync(join(root, "package.json")).toString());
 
-const prompt = Inquirer.createPromptModule();
+const prompt = inquirer.createPromptModule();
 
-Program.version(pjson.version, "-v, --version", "output the current version")
+program.version(pjson.version, "-v, --version", "output the current version")
     .allowUnknownOption();
 
-Program.command("network", { isDefault: true })
+program.command("network", { isDefault: true })
     .description("build network library")
     .action(() => {
         if (process.platform === "linux") {
@@ -52,7 +52,7 @@ Program.command("network", { isDefault: true })
         }
     });
 
-Program.command("publish")
+program.command("publish")
     .description("publish the network library to npm")
     .action(() => {
         prompt([
@@ -71,4 +71,4 @@ Program.command("publish")
         });
     });
 
-Program.parse(process.argv);
+program.parse(process.argv);

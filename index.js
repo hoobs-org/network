@@ -16,10 +16,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.                          *
  **************************************************************************************************/
 
-const hotspot = require("./hotspot");
-const wireless = require("./wireless");
-const ethernet = require("./ethernet");
-const command = require("./command");
+const hotspot = require("./lib/hotspot");
+const wireless = require("./lib/wireless");
+const ethernet = require("./lib/ethernet");
+const command = require("./lib/command");
 
 let AP;
 
@@ -37,7 +37,7 @@ class Network {
     }
 
     static current() {
-        return [ ...ethernet.current(), ...wireless.current() ];
+        return [...ethernet.current(), ...wireless.current()];
     }
 
     static get hotspot() {

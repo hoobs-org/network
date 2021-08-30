@@ -1,0 +1,20 @@
+{
+    "root": true,
+    "env": {
+        "commonjs": true,
+        "browser": true,
+        "node": true
+    },
+    "extends": ["airbnb-base"],
+    "ignorePatterns": ["bin/"],
+    "rules": {
+        "comma-dangle": ["error", "always-multiline"],
+        "indent": ["error", 4, { "SwitchCase": 1 }],
+        "linebreak-style": ["error", "unix"],
+        "max-len": ["error", { "code": 220 }],
+        "new-cap": "off",
+        "no-plusplus": "off",
+        "quotes": ["error", "double"],
+        "spaced-comment": "off"
+    }
+}
