@@ -1,0 +1,25 @@
+{
+    "name": "@hoobs/network",
+    "version": "1.0.0",
+    "description": "Library for interacting with network interfaces on Debian based systems.",
+    "license": "GPL-3.0",
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/hoobs-org/network.git"
+    },
+    "bugs": {
+        "url": "https://github.com/hoobs-org/network/issues"
+    },
+    "main": "index.js",
+    "author": {
+        "name": "Michael J Kellsy"
+    },
+    "scripts": {
+        "build": "bin/build",
+        "release": "bin/build publish"
+    },
+    "devDependencies": {
+        "commander": "^8.1.0",
+        "inquirer": "^8.1.2"
+    }
+}

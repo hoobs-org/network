@@ -1,0 +1,74 @@
+#!/usr/bin/env node
+
+/**************************************************************************************************
+ * hoobs-network                                                                                  *
+ * Copyright (C) 2021 HOOBS                                                                       *
+ *                                                                                                *
+ * This program is free software: you can redistribute it and/or modify                           *
+ * it under the terms of the GNU General Public License as published by                           *
+ * the Free Software Foundation, either version 3 of the License, or                              *
+ * (at your option) any later version.                                                            *
+ *                                                                                                *
+ * This program is distributed in the hope that it will be useful,                                *
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of                                 *
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the                                  *
+ * GNU General Public License for more details.                                                   *
+ *                                                                                                *
+ * You should have received a copy of the GNU General Public License                              *
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.                          *
+ **************************************************************************************************/
+
+const Program = require("commander");
+const Inquirer = require("inquirer");
+const { join } = require("path");
+const { execSync } = require("child_process");
+
+const {
+    existsSync,
+    mkdirSync,
+    readFileSync,
+    unlinkSync,
+} = require("fs");
+
+const root = join(__dirname, "../");
+const pjson = JSON.parse(readFileSync(join(root, "package.json")).toString());
+
+const prompt = Inquirer.createPromptModule();
+
+Program.version(pjson.version, "-v, --version", "output the current version")
+    .allowUnknownOption();
+
+Program.command("network", { isDefault: true })
+    .description("build network library")
+    .action(() => {
+        if (process.platform === "linux") {
+            if (!existsSync(join(root, "builds"))) mkdirSync(join(root, "builds"));
+
+            execSync("yarn pack", { cwd: root, stdio: "inherit" });
+
+            if (existsSync(join(root, "builds", `hoobs-network-v${pjson.version}.tgz`))) unlinkSync(join(root, "builds", `hoobs-network-v${pjson.version}.tgz`))
+
+            execSync(`mv ${join(root, `hoobs-network-v${pjson.version}.tgz`)} ${join(root, "builds", `hoobs-network-v${pjson.version}.tgz`)}`, { cwd: root, stdio: "inherit" });
+        }
+    });
+
+Program.command("publish")
+    .description("publish the network library to npm")
+    .action(() => {
+        prompt([
+            {
+                type: "confirm",
+                name: "confirm",
+                default: false,
+                message: "Are you sure you want to publish",
+                format: (value) => value.toLowerCase(),
+            },
+        ]).then((result) => {
+            if (result && result.confirm) {
+                execSync(`${join(root, "bin", "build")} network`, { cwd: root, stdio: ["inherit", "inherit", "inherit"] });
+                execSync(`yarn publish --access public --new-version ${pjson.version}`, { cwd: root, stdio: ["inherit", "inherit", "inherit"] });
+            }
+        });
+    });
+
+Program.parse(process.argv);
