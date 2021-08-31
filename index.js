@@ -59,15 +59,11 @@ class Network {
 
             if (fields[2] === "unmanaged") return undefined;
 
-            if (fields[1] === "ethernet" || fields[1] === "wifi") {
-                return {
-                    iface: fields[0].replace(/&&/g, ":"),
-                    type: fields[1].replace(/&&/g, ":"),
-                    active: fields[2].replace(/&&/g, ":") === "connected",
-                };
-            }
-
-            return undefined;
+            return {
+                iface: fields[0].replace(/&&/g, ":"),
+                type: fields[1].replace(/&&/g, ":"),
+                active: fields[2].replace(/&&/g, ":") === "connected",
+            };
         }).filter((network) => network);
     }
 }
