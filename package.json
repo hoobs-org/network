@@ -14,10 +14,6 @@
     "author": {
         "name": "Michael J Kellsy"
     },
-    "scripts": {
-        "build": "bin/build --lint",
-        "release": "bin/build publish"
-    },
     "devDependencies": {
         "commander": "^8.1.0",
         "eslint": "^7.2.0",
