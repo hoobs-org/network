@@ -4,37 +4,20 @@ version() {
     echo `node -e 'console.log(require("./package.json").version)'`
 }
 
-publish() {
-    npm adduser
-    build
-    npm publish --access public
-}
-
-build() {
-    lint
-    npm pack
-    mkdir -p builds
-    mv *.tgz builds/
-}
-
-lint() {
-    node_modules/.bin/eslint '*.js'
-}
-
 case $1 in
     version )  version
                ;;
 
-    lint )     lint
+    lint )     make lint
                ;;
 
-    build )    build
+    build )    make network
                ;;
 
-    publish )  publish
+    publish )  make publish
                ;;
 
-    clean )    rm -f *.tgz
+    clean )    make clean
                ;;
 
     * )        ;;
