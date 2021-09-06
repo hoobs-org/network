@@ -1,10 +1,8 @@
-network: $(eval VERSION := $(shell project version))
 network: lint paths
 	npm pack
-	mv hoobs-network-$(VERSION).tgz builds/
+	mv hoobs-network-$(shell project version).tgz builds/
 
 lint:
-	@echo $(VERSION)
 	node_modules/.bin/eslint '*.js'
 
 paths:
