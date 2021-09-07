@@ -1,6 +1,7 @@
 network: lint paths
 	npm pack
 	mv hoobs-network-$(shell project version).tgz builds/
+	rm -f *.tgz
 
 lint:
 	node_modules/.bin/eslint '*.js'
