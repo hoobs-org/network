@@ -10,8 +10,7 @@ paths:
 	mkdir -p builds
 
 publish:
-	npm adduser
-	npm publish --access public
+	../node_modules/.bin/yarn publish --access public --new-version $(shell project version)
 
 clean:
 	rm -f *.tgz
