@@ -1,6 +1,6 @@
 {
     "name": "@hoobs/network",
-    "version": "1.0.15",
+    "version": "1.0.17",
     "description": "Library for interacting with network interfaces on Debian based systems.",
     "license": "GPL-3.0",
     "repository": {
